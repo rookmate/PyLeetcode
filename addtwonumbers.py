@@ -30,28 +30,24 @@ def returnNumber(l):
     return int(''.join(value_list))
 
 
-def reverseListToListNode(l):
-    """Converts python list to ListNode single-linked list"""
-    ln = ListNode(l[0])
-    temp = ln
-    for e in l:
-        temp.next = ListNode(e)
-        temp = temp.next
-    return ln.next
-
-
 def addTwoNumbers(l1, l2):
     """
     :type l1: ListNode
     :type l2: ListNode
     :rtype: ListNode
     """
-    n1 = returnNumber(l1)
-    n2 = returnNumber(l2)
-    total = n1 + n2
-    total_list = [int(d) for d in str(total)]
-    total_list.reverse()
-    return reverseListToListNode(total_list)
+    n1, n2 = list(map(returnNumber, (l1, l2)))
+    total = str(n1 + n2)
+    total = ''.join(reversed(total))
+    print(total)
+    return 0
+    # Converts python string to ListNode single-linked list
+    ln = ListNode(total[0])
+    temp = ln
+    for e in total:
+        temp.next = ListNode(e)
+        temp = temp.next
+    return ln.next
 
 # Definition for singly-linked list.
 class ListNode(object):
