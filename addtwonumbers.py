@@ -8,6 +8,7 @@
 # Output: 7 -> 0 -> 8
 # Explanation: 342 + 465 = 807.
 
+result = "2019-10-09\nRuntime: 80 ms, faster than 5.25% of Python online submissions for Add Two Numbers.\nMemory Usage: 11.7 MB, less than 83.82% of Python online submissions for Add Two Numbers."
 
 def popLast(l):
     """Pops last element of the list until there the end"""
@@ -39,8 +40,6 @@ def addTwoNumbers(l1, l2):
     n1, n2 = list(map(returnNumber, (l1, l2)))
     total = str(n1 + n2)
     total = ''.join(reversed(total))
-    print(total)
-    return 0
     # Converts python string to ListNode single-linked list
     ln = ListNode(total[0])
     temp = ln
@@ -64,3 +63,4 @@ if __name__ == "__main__":
     listnode2.next.next = ListNode(4)
 
     addTwoNumbers(listnode1, listnode2)
+    print(result)
