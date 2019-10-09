@@ -8,27 +8,7 @@
 # Output: 7 -> 0 -> 8
 # Explanation: 342 + 465 = 807.
 
-result = "2019-10-09\nRuntime: 80 ms, faster than 5.25% of Python online submissions for Add Two Numbers.\nMemory Usage: 11.7 MB, less than 83.82% of Python online submissions for Add Two Numbers."
-
-def popLast(l):
-    """Pops last element of the list until there the end"""
-    while(l.next is not None):
-        prev  = l
-        l = l.next
-    prev.next = None
-    return str(l.val)
-
-
-def returnNumber(l):
-    """Returns the reversed number from the list"""
-    value_list = []
-    while(True):
-        if l.next is None:
-            value_list.append(str(l.val))
-            break
-        else:
-            value_list.append(popLast(l))
-    return int(''.join(value_list))
+result = "2019-10-09\nRuntime: 48 ms, faster than 92.75% of Python online submissions for Add Two Numbers.\nMemory Usage: 11.9 MB, less than 14.71% of Python online submissions for Add Two Numbers."
 
 
 def addTwoNumbers(l1, l2):
@@ -37,16 +17,23 @@ def addTwoNumbers(l1, l2):
     :type l2: ListNode
     :rtype: ListNode
     """
-    n1, n2 = list(map(returnNumber, (l1, l2)))
-    total = str(n1 + n2)
-    total = ''.join(reversed(total))
-    # Converts python string to ListNode single-linked list
-    ln = ListNode(total[0])
+    # Traversing lists, adding and creating final list all at the same time
+    ln = ListNode("")
     temp = ln
-    for e in total:
-        temp.next = ListNode(e)
+    carry = 0
+    while l1 is not None or l2 is not None or carry:
+        #Traverse both lists and add to total of said Node
+        if l1 is not None:
+            carry += l1.val
+            l1 = l1.next
+        if l2 is not None:
+            carry += l2.val
+            l2 = l2.next
+        temp.next = ListNode(carry%10)  # Get first digit of the number by modulus division
         temp = temp.next
-    return ln.next
+        carry = carry//10               # Get the second digit of the number by flooring the number
+    return ln.next                      # Returns next to eliminate the dummy first value
+
 
 # Definition for singly-linked list.
 class ListNode(object):
