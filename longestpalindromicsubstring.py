@@ -11,7 +11,7 @@
 # Output: "bb"
 
 
-results = "2019-10-10\nRuntime: 5912 ms, faster than 8.96% of Python online submissions for Longest Palindromic Substring.\nMemory Usage: 11.9 MB, less than 60.27% of Python online submissions for Longest Palindromic Substring."
+results = "2019-10-10\nRuntime: 44 ms, faster than 99.32% of Python online submissions for Longest Palindromic Substring.\nMemory Usage: 11.8 MB, less than 61.64% of Python online submissions for Longest Palindromic Substring."
 
 
 def longestPalindrome(s):
@@ -22,20 +22,23 @@ def longestPalindrome(s):
     if not s:
         return s
 
-    max_length = 1
+    max_length = 0
     start_index = 0
     length = len(s)
+    print(s)
     for index in range(length):
-        inc_index = index + 1
-        while inc_index <= length and max_length <= length - index:
-            # If substring s[index : inc_index] is a palindrome and longer than current max length
-            if s[index : inc_index] == s[index : inc_index][::-1] and inc_index - index > max_length:
-                start_index = index
-                max_length = inc_index - index
-            inc_index += 1
+        # EVEN SIZE STRING -> index-max_length
+        if s[index-max_length:index+1] == s[index-max_length:index+1][::-1]:
+            start_index = index - max_length
+            max_length = max_length + 1
+        # ODD SIZE STRING -> index-max_length-1
+        if index >= max_length + 1 and s[index-max_length-1:index+1] == s[index-max_length-1:index+1][::-1]:
+            start_index = index - max_length - 1
+            max_length = max_length + 2
+
     return s[start_index : start_index + max_length]
 
 
 if __name__ == "__main__":
-    print(list(map(longestPalindrome, ("babad", "cbbd", "", "jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkqjqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovilthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgjryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfyttevqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatudjihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshxqkgbhoscjgpiel"))))
+    print(list(map(longestPalindrome, ("babad", "cbbd", "", "aba", "jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkqjqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovilthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgjryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfyttevqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatudjihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshxqkgbhoscjgpiel"))))
     print(results)
